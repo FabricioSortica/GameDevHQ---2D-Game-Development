@@ -18,10 +18,30 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerMovement();
+
+    }
+
+    void PlayerMovement()
+    {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+
         transform.Translate(direction * _speed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 3.0f)); 
+
+        if (transform.position.x >= 11f)
+        {
+            transform.position = new Vector3(-11f, transform.position.y, 0);
+        }
+        else if (transform.position.x <= -11f)
+        {
+            transform.position = new Vector3(11f, transform.position.y, 0);
+        }
     }
+
+
 }
