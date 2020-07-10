@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotLaserPrefab;
     [SerializeField]
+    private GameObject shieldsUpViewer;
+
+    [SerializeField]
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
     [SerializeField]
@@ -20,8 +23,9 @@ public class Player : MonoBehaviour
 
     private SpawnManager _spawnManager;     
 
-    private bool _isTripleShotActive = false;
-   
+    private bool _isTripleShotActive = false;    
+    private bool _isShieldsUp = false;
+
 
 
     // Start is called before the first frame update
@@ -92,6 +96,13 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
+        if (_isShieldsUp == true)
+        {
+            _isShieldsUp = false;
+            shieldsUpViewer.SetActive(false);
+            return;
+        }
+
         _lives --;
 
         if(_lives < 0)
@@ -126,6 +137,12 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _speed /=_speedBoost;
+    }
+
+    public void ShieldsUpActive()
+    {
+        _isShieldsUp = true;
+        shieldsUpViewer.SetActive(true);
     }
 
 }
