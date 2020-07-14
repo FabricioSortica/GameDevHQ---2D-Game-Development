@@ -21,10 +21,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
 
-    private SpawnManager _spawnManager;     
+    private SpawnManager _spawnManager;
+    private UIManager _uIManager;
 
-    private bool _isTripleShotActive = false;    
+    private bool _isTripleShotActive = false;
     private bool _isShieldsUp = false;
+
+    private int _score = 0;
 
 
 
@@ -33,10 +36,16 @@ public class Player : MonoBehaviour
     {
         transform.position = new Vector3(0, -2.75f, 0);
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (_spawnManager == null)
         {
             Debug.LogError("The Spawn Manager is NULL!");
+        }        
+
+        if (_uIManager == null)
+        {
+            Debug.LogError("UI Manager is NULL!");
         }
 
     }
@@ -50,7 +59,7 @@ public class Player : MonoBehaviour
         {
             FireLaser();
         }
-        
+
 
     }
 
@@ -63,7 +72,7 @@ public class Player : MonoBehaviour
 
         transform.Translate(direction * _speed * Time.deltaTime);
 
-        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 3.0f)); 
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -3.8f, 3.0f));
 
         if (transform.position.x >= 11f)
         {
@@ -90,8 +99,8 @@ public class Player : MonoBehaviour
             Instantiate(_laserPrefab, transform.position + laserOffset, Quaternion.identity);
         }
 
-        
-        
+
+
     }
 
     public void Damage()
@@ -100,16 +109,31 @@ public class Player : MonoBehaviour
         {
             _isShieldsUp = false;
             shieldsUpViewer.SetActive(false);
+            AddToScore(10);
+
             return;
         }
-
-        _lives --;
-
-        if(_lives < 0)
+        else
         {
-            _spawnManager.OnPlayerDeath();
-            Destroy(this.gameObject);
+            _lives--;
+            AddToScore(-10);
+           
+
+            if (_lives < 0)
+            {
+                _spawnManager.OnPlayerDeath();
+                _uIManager.UpdateLivesImg(0);
+                _uIManager.GameOverSequence();               
+                Destroy(this.gameObject);                
+            }
+            else
+            {
+                _uIManager.UpdateLivesImg(_lives);
+            }
+
         }
+
+
 
     }
 
@@ -136,13 +160,20 @@ public class Player : MonoBehaviour
     IEnumerator SpeedBoostOffCourotine()
     {
         yield return new WaitForSeconds(5.0f);
-        _speed /=_speedBoost;
+        _speed /= _speedBoost;
     }
 
     public void ShieldsUpActive()
     {
         _isShieldsUp = true;
         shieldsUpViewer.SetActive(true);
+    }
+
+    public void AddToScore(int scorePoints)
+    {
+        _score += scorePoints;
+        _uIManager.UpdateScoreText(_score);
+
     }
 
 }
