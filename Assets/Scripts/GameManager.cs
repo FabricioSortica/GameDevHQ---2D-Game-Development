@@ -14,10 +14,17 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(1); // Load Game Scene
         }
+
+        if (Input.GetKeyDown(KeyCode.Q) && _isGameOver == true)
+        {
+            SceneManager.LoadScene(0); // Load Main Menu Scene
+        }
     }
 
     public void GameOver()
     {
         _isGameOver = true;
     }
+
+
 }

@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotLaserPrefab;
     [SerializeField]
-    private GameObject shieldsUpViewer;
+    private GameObject _shieldsUpViewer;
 
     [SerializeField]
     private float _fireRate = 0.15f;
@@ -28,6 +28,18 @@ public class Player : MonoBehaviour
     private bool _isShieldsUp = false;
 
     private int _score = 0;
+
+    [SerializeField]
+    private GameObject _playerThrusterLeft;
+    [SerializeField]
+    private GameObject _playerThrusterRight;
+
+    [SerializeField]
+    private GameObject _playerDamageLeft;
+    [SerializeField]
+    private GameObject _playerDamageRight;
+    [SerializeField]
+    private GameObject _playerDamageMajor;
 
 
 
@@ -108,7 +120,7 @@ public class Player : MonoBehaviour
         if (_isShieldsUp == true)
         {
             _isShieldsUp = false;
-            shieldsUpViewer.SetActive(false);
+            _shieldsUpViewer.SetActive(false);
             AddToScore(10);
 
             return;
@@ -117,7 +129,25 @@ public class Player : MonoBehaviour
         {
             _lives--;
             AddToScore(-10);
-           
+
+           switch (_lives)
+           {
+                case 0:
+                    _playerDamageMajor.SetActive(true);
+                    break;
+                case 1:
+                    _playerThrusterRight.SetActive(false);
+                    _playerDamageRight.SetActive(true);
+                    break;
+                case 2:
+                    _playerThrusterLeft.SetActive(false);
+                    _playerDamageLeft.SetActive(true);
+                    break;
+                default:
+                    Debug.Log("Default Value");
+                    break;
+
+           }
 
             if (_lives < 0)
             {
@@ -166,7 +196,7 @@ public class Player : MonoBehaviour
     public void ShieldsUpActive()
     {
         _isShieldsUp = true;
-        shieldsUpViewer.SetActive(true);
+        _shieldsUpViewer.SetActive(true);
     }
 
     public void AddToScore(int scorePoints)
