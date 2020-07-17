@@ -11,16 +11,55 @@ public class Laser : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.up * _speed * Time.deltaTime);
+        Movement();
+    }
 
-        if (transform.position.y > 8.0f)
+    void Movement()
+    {
+        if (gameObject.tag == "Laser")
         {
-            if (transform.parent != null)
+            transform.Translate(Vector3.up * _speed * Time.deltaTime);
+
+            if (transform.position.y > 8.0f)
             {
-                Destroy(transform.parent.gameObject);
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+
+                Destroy(this.gameObject);
+            }
+        }
+        else if (gameObject.tag == "Enemy_Laser")
+        {
+            transform.Translate(Vector3.down * _speed * Time.deltaTime);
+
+            if (transform.position.y < -8.0f)
+            {
+                if (transform.parent != null)
+                {
+                    Destroy(transform.parent.gameObject);
+                }
+
+                Destroy(this.gameObject);
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Player" && gameObject.tag == "Enemy_Laser")
+        {
+            Player player = other.GetComponent<Player>();
+
+            if (player!= null)
+            {
+                player.Damage();
             }
 
             Destroy(this.gameObject);
         }
+        
     }
+
 }

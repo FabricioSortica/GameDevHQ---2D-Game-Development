@@ -135,7 +135,7 @@ public class Player : MonoBehaviour
         
     }
 
-    public void Damage()
+     public void Damage()
     {
         if (_isShieldsUp == true)
         {
@@ -183,8 +183,6 @@ public class Player : MonoBehaviour
             }
 
         }
-
-
 
     }
 

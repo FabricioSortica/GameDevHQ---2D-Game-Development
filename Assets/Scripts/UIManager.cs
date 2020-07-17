@@ -13,9 +13,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _restartText;
     [SerializeField]
+    private Text _tutorialText;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Sprite[] _liveSprites;
+    
 
     private GameManager _gameManager;
     
@@ -26,6 +29,7 @@ public class UIManager : MonoBehaviour
         _scoreText.text = "Score: " + 00;
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
+        _tutorialText.gameObject.SetActive(true);
 
         _gameManager = GameObject.Find("Game_Manager").GetComponent<GameManager>();
 
@@ -64,6 +68,11 @@ public class UIManager : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }        
        
+    }
+
+    public void StartGame()
+    {
+        _tutorialText.gameObject.SetActive(false);
     }
 
 

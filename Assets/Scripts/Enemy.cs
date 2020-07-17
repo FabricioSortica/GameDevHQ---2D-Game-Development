@@ -13,9 +13,18 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
 
     [SerializeField]
+    private GameObject _enemyLaserPrefab;
+
+    [SerializeField]
     private AudioClip _explosionSound;
+    [SerializeField]
+    private AudioClip _laserEnemySound;   
 
     private AudioSource _audiosource;
+
+    private float _fireRate = 3.0f;
+    private float _canFire = -1.0f;
+    
 
    
 
@@ -43,18 +52,23 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            _audiosource.clip = _explosionSound;
+            _audiosource.clip = _laserEnemySound;
         }
 
-       
-
-        
+               
 
     }
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        Movement();
+        Shoot();
+
+    }
+
+    void Movement()
+    {
         transform.Translate(Vector3.down * _speed * Time.deltaTime);
 
         if (transform.position.y <= -7.0f)
@@ -62,11 +76,25 @@ public class Enemy : MonoBehaviour
             float randomX = Random.Range(-9.5f, 9.5f);
             transform.position = new Vector3(randomX, 8.0f, 0);
         }
-
     }
 
+    private void Shoot()
+    {
+        if(Time.deltaTime > _canFire)
+        {
+            _fireRate = Random.Range(3f, 7f);
+            _canFire = Time.deltaTime + _fireRate;
+            _audiosource.Play();
+            Vector3 laserOffset = new Vector3(0, -1.4f, 0);
+            Instantiate(_enemyLaserPrefab, transform.position + laserOffset, Quaternion.identity);
+            
+        }
+    }
+
+   
     private void OnTriggerEnter2D(Collider2D other)
     {
+       
 
         if (other.tag == "Player")
         {
@@ -77,8 +105,9 @@ public class Enemy : MonoBehaviour
                 player.Damage();
 
             }
-
+            
             EnemyDeath();
+
         }
 
         if (other.tag == "Laser")
@@ -89,18 +118,22 @@ public class Enemy : MonoBehaviour
             {
                 _player.AddToScore(10);
             }
-
+           
             EnemyDeath();
         }
 
-                      
+
+        
+
     }
 
     void EnemyDeath()
-    {
+    {       
         _speed = 0f;
+        _audiosource.clip = _explosionSound;
         _audiosource.Play();
-        _animator.SetTrigger("OnEnemyDeath");        
+        _animator.SetTrigger("OnEnemyDeath");
+        Destroy(GetComponent<Collider2D>());
         Destroy(this.gameObject, 2.0f);
     }
 

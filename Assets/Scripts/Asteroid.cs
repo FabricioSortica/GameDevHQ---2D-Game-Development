@@ -11,6 +11,8 @@ public class Asteroid : MonoBehaviour
 
     private SpawnManager _spawnManager;
 
+    private UIManager _uIManager;
+
     
 
    
@@ -19,11 +21,16 @@ public class Asteroid : MonoBehaviour
     void Start()
     {
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
-        
+        _uIManager = GameObject.Find("Canvas").GetComponent<UIManager>();
 
         if (_spawnManager == null)
         {
             Debug.LogError("Tha spawn manager is NULL!");
+        }
+
+        if (_uIManager == null)
+        {
+            Debug.LogError("the UI Manager is NULL!");
         }
 
        
@@ -40,7 +47,8 @@ public class Asteroid : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Laser")
-        {            
+        {
+            _uIManager.StartGame();
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
             Destroy(other.gameObject);
             _spawnManager.StartSpawning();            
