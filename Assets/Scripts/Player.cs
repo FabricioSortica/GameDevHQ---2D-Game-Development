@@ -5,9 +5,11 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField]
-    private float _speed = 5.0f;
+    private float _speed = 4.0f;
     [SerializeField]
     private float _speedBoost = 1.5f;
+    [SerializeField]
+    private float _thrusterBoost = 1.5f;
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
@@ -33,6 +35,8 @@ public class Player : MonoBehaviour
     private GameObject _playerThrusterLeft;
     [SerializeField]
     private GameObject _playerThrusterRight;
+    [SerializeField]
+    private GameObject _playerThrusterBoost;
 
     [SerializeField]
     private GameObject _playerDamageLeft;
@@ -86,11 +90,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         Movement();
+        Thruster();        
 
         if (Input.GetKeyDown(KeyCode.Space) && Time.time > _canFire)
         {
             FireLaser();
         }
+
+       
 
 
     }
@@ -114,6 +121,23 @@ public class Player : MonoBehaviour
         {
             transform.position = new Vector3(11f, transform.position.y, 0);
         }
+    }
+
+    void Thruster()
+    {
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            _playerThrusterBoost.SetActive(true);
+            _speed *= _thrusterBoost;
+        }
+
+        if (Input.GetKeyUp(KeyCode.LeftShift))
+        {
+            _playerThrusterBoost.SetActive(false);
+            _speed /= _thrusterBoost;
+        }
+
     }
 
     void FireLaser()
@@ -210,7 +234,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(5.0f);
         _speed /= _speedBoost;
-    }
+    }    
 
     public void ShieldsUpActive()
     {
