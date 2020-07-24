@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private float _canFire = -1f;
     [SerializeField]
     private int _lives = 3;
+    [SerializeField]
+    private int _shields = 0;
 
     private SpawnManager _spawnManager;
     private UIManager _uIManager;
@@ -163,8 +165,7 @@ public class Player : MonoBehaviour
     {
         if (_isShieldsUp == true)
         {
-            _isShieldsUp = false;
-            _shieldsUpViewer.SetActive(false);
+            ShieldsDown();
             AddToScore(10);
 
             return;
@@ -236,12 +237,34 @@ public class Player : MonoBehaviour
         _speed /= _speedBoost;
     }    
 
-    public void ShieldsUpActive()
+    public void ShieldsUp()
     {
-        _isShieldsUp = true;
-        _shieldsUpViewer.SetActive(true);
+        if (_isShieldsUp == false)
+        {
+            _isShieldsUp = true;
+            _shieldsUpViewer.SetActive(true);
+        }
+                
+        if (_shields < 3)
+        {
+            _shields++;
+            _uIManager.UpdateShieldsImg(_shields);
+        }
+
     }
 
+    void ShieldsDown()
+    {
+        _shields--;
+        _uIManager.UpdateShieldsImg(_shields);
+        
+        if (_shields == 0)
+        {
+            _isShieldsUp = false;
+            _shieldsUpViewer.SetActive(false);
+        }
+
+    }
     public void AddToScore(int scorePoints)
     {
         _score += scorePoints;

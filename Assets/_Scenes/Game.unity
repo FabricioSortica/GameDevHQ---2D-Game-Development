@@ -945,6 +945,7 @@ MonoBehaviour:
   _shieldsUpViewer: {fileID: 1077550599}
   _fireRate: 0.15
   _lives: 3
+  _shields: 0
   _playerThrusterLeft: {fileID: 1743472382}
   _playerThrusterRight: {fileID: 1572000649}
   _playerThrusterBoost: {fileID: 188730804}
@@ -1248,6 +1249,79 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &923511936
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 923511937}
+  - component: {fileID: 923511939}
+  - component: {fileID: 923511938}
+  m_Layer: 5
+  m_Name: Shields_Display_Img
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &923511937
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923511936}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2143239362}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -310, y: 172.87}
+  m_SizeDelta: {x: 100, y: 55.78}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &923511938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923511936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: db57e4f13f667314ab97fd8e75be7e74, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &923511939
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923511936}
+  m_CullTransparentMesh: 0
 --- !u!1 &1054531647
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,6 +2393,7 @@ RectTransform:
   - {fileID: 1516902329}
   - {fileID: 114935202}
   - {fileID: 64664021}
+  - {fileID: 923511937}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2344,11 +2419,17 @@ MonoBehaviour:
   _restartText: {fileID: 114935203}
   _tutorialText: {fileID: 64664022}
   _livesImg: {fileID: 1875542096}
+  _ShieldsImg: {fileID: 923511938}
   _liveSprites:
   - {fileID: 21300000, guid: ba53e111f0125654cabfd4eefaf3a657, type: 3}
   - {fileID: 21300000, guid: 80fba5ece7697c44eacc036539c1b552, type: 3}
   - {fileID: 21300000, guid: 482c8e4c0346b704aa5f1760c3c989d5, type: 3}
   - {fileID: 21300000, guid: 9fe6f40efddf0b64fb68a3382b14a4db, type: 3}
+  _shieldSprites:
+  - {fileID: 21300000, guid: db57e4f13f667314ab97fd8e75be7e74, type: 3}
+  - {fileID: 21300000, guid: f8f0905f0926fa14a86659c5782b761f, type: 3}
+  - {fileID: 21300000, guid: abcaef5811ad7744496db7942b4dd221, type: 3}
+  - {fileID: 21300000, guid: 87617c0ef26bb924099a324f9666e675, type: 3}
 --- !u!1001 &409240292896409496
 PrefabInstance:
   m_ObjectHideFlags: 0
