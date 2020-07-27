@@ -15,6 +15,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private Text _tutorialText;
     [SerializeField]
+    private Text _ammoCounterText;
+    [SerializeField]
+    private Text _ammoOutText;
+    [SerializeField]
     private Image _livesImg;
     [SerializeField]
     private Image _ShieldsImg;
@@ -31,6 +35,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         _scoreText.text = "Score: " + 00;
+        _ammoCounterText.text = "Ammo: " + 15;
         _gameOverText.gameObject.SetActive(false);
         _restartText.gameObject.SetActive(false);
         _tutorialText.gameObject.SetActive(true);
@@ -48,6 +53,16 @@ public class UIManager : MonoBehaviour
     public void UpdateScoreText(int scoreUpdate)
     {
         _scoreText.text = "Score: " + scoreUpdate;
+    }
+
+    public void UpdateAmmoScoreText(int ammoUpdate)
+    {
+        _ammoCounterText.text = "Ammo: " + ammoUpdate;
+
+        if (ammoUpdate == 0)
+        {
+            StartCoroutine(AmmoOutMessageRoutine());
+        }
     }
 
     public void UpdateLivesImg(int currentLives)
@@ -76,6 +91,14 @@ public class UIManager : MonoBehaviour
             _gameOverText.gameObject.SetActive(false);
             yield return new WaitForSeconds(0.25f);
         }        
+       
+    }
+
+    public IEnumerator AmmoOutMessageRoutine()
+    {
+        _ammoOutText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        _ammoOutText.gameObject.SetActive(false);
        
     }
 

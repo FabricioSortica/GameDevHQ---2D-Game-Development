@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.15f;
     private float _canFire = -1f;
+
+    [SerializeField]
+    private int _ammoCounter = 15;
+
     [SerializeField]
     private int _lives = 3;
     [SerializeField]
@@ -144,21 +148,31 @@ public class Player : MonoBehaviour
 
     void FireLaser()
     {
-        _canFire = Time.time + _fireRate;
-
-        if (_isTripleShotActive == true)
+        if (_ammoCounter > 0)
         {
-            Instantiate(_tripleShotLaserPrefab, transform.position, Quaternion.identity);
-        }
+            _canFire = Time.time + _fireRate;
 
+            if (_isTripleShotActive == true)
+            {
+                Instantiate(_tripleShotLaserPrefab, transform.position, Quaternion.identity);
+            }
+
+            else
+            {
+                Vector3 laserOffset = new Vector3(0, 0.8f, 0);
+                Instantiate(_laserPrefab, transform.position + laserOffset, Quaternion.identity);
+            }
+
+            _ammoCounter--;
+            _uIManager.UpdateAmmoScoreText(_ammoCounter);
+            _audioSource.Play();
+
+        }
         else
         {
-            Vector3 laserOffset = new Vector3(0, 0.8f, 0);
-            Instantiate(_laserPrefab, transform.position + laserOffset, Quaternion.identity);
+            _uIManager.UpdateAmmoScoreText(_ammoCounter);
         }
 
-        _audioSource.Play();
-        
     }
 
      public void Damage()
