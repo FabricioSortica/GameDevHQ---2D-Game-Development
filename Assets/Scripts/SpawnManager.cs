@@ -20,6 +20,7 @@ public class SpawnManager : MonoBehaviour
     {
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupsRoutine());
+        StartCoroutine(SpawnAmmoClipRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -47,6 +48,18 @@ public class SpawnManager : MonoBehaviour
         }
         
     }
+
+    IEnumerator SpawnAmmoClipRoutine()
+    {
+        while (_stopSpawning == false)
+        {
+            yield return new WaitForSeconds(Random.Range(10, 15));
+            Vector3 spawnPosition = new Vector3(Random.Range(-9.5f, 9.5f), 8.0f, 0);
+            Instantiate(powerups[3], spawnPosition, Quaternion.identity);
+        }
+        
+    }
+
 
     public void OnPlayerDeath()
     {

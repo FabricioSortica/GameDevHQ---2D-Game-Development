@@ -279,6 +279,13 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    public void AmmoReload()
+    {
+        _ammoCounter = 15;
+        _uIManager.UpdateAmmoScoreText(15);
+    }
+
     public void AddToScore(int scorePoints)
     {
         _score += scorePoints;
