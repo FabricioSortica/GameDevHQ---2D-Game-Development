@@ -188,26 +188,8 @@ public class Player : MonoBehaviour
         {
             _lives--;
             AddToScore(-10);
-
-           switch (_lives)
-           {
-                case 0:
-                    _playerDamageMajor.SetActive(true);
-                    break;
-                case 1:
-                    _playerThrusterRight.SetActive(false);
-                    _playerDamageRight.SetActive(true);
-                    break;
-                case 2:
-                    _playerThrusterLeft.SetActive(false);
-                    _playerDamageLeft.SetActive(true);
-                    break;
-                default:
-                    Debug.Log("Default Value");
-                    break;
-
-           }
-
+            UpdateThrusters();
+            
             if (_lives < 0)
             {
                 Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
@@ -223,6 +205,55 @@ public class Player : MonoBehaviour
 
         }
 
+    }
+
+    public void PlayerLifeUp()
+    {
+        if (_lives < 3)
+        {
+            _lives++;
+            UpdateThrusters();
+            _uIManager.UpdateLivesImg(_lives);
+        }
+    }
+
+    void UpdateThrusters()
+    {
+        switch (_lives)
+        {
+            case 0:
+                _playerDamageMajor.SetActive(true);
+                _playerDamageRight.SetActive(true);
+                _playerDamageLeft.SetActive(true);
+                _playerThrusterRight.SetActive(false);                
+                _playerThrusterLeft.SetActive(false);                
+                break;
+            case 1:
+                _playerDamageMajor.SetActive(false);
+                _playerDamageRight.SetActive(true);
+                _playerDamageLeft.SetActive(true);
+                _playerThrusterRight.SetActive(false);
+                _playerThrusterLeft.SetActive(false);
+                break;
+            case 2:
+                _playerDamageMajor.SetActive(false);
+                _playerDamageRight.SetActive(false);
+                _playerDamageLeft.SetActive(true);
+                _playerThrusterRight.SetActive(true);
+                _playerThrusterLeft.SetActive(false);
+                break;
+            case 3:
+                _playerDamageMajor.SetActive(false);
+                _playerDamageRight.SetActive(false);
+                _playerDamageLeft.SetActive(false);
+                _playerThrusterRight.SetActive(true);
+                _playerThrusterLeft.SetActive(true);
+                break;
+            default:
+                Debug.Log("Default Value");
+                break;
+
+        }
     }
 
     public void TripleShotActive()

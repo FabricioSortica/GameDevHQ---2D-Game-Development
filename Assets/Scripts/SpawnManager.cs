@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(5, 13));
             Vector3 spawnPosition = new Vector3(Random.Range(-9.5f, 9.5f), 8.0f, 0);
-            int randomPowerup = Random.Range(0, 3);
+            int randomPowerup = Random.Range(0, 4);
             Instantiate(powerups[randomPowerup], spawnPosition, Quaternion.identity);            
 
         }
@@ -55,7 +55,7 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(10, 15));
             Vector3 spawnPosition = new Vector3(Random.Range(-9.5f, 9.5f), 8.0f, 0);
-            Instantiate(powerups[3], spawnPosition, Quaternion.identity);
+            Instantiate(powerups[4], spawnPosition, Quaternion.identity);
         }
         
     }

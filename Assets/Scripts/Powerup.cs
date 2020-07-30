@@ -46,6 +46,9 @@ public class Powerup : MonoBehaviour
                         player.ShieldsUp();
                         break;
                     case 3:
+                        player.PlayerLifeUp();
+                        break;
+                    case 4:
                         player.AmmoReload();
                         break;
                     default:
