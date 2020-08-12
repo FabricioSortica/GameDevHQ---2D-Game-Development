@@ -51,6 +51,9 @@ public class Powerup : MonoBehaviour
                     case 4:
                         player.AmmoReload();
                         break;
+                    case 5:
+                        player.HeatSeekerOn();
+                        break;
                     default:
                         Debug.Log("Default Value");
                         break;

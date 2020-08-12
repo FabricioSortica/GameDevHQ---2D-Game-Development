@@ -15,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _tripleShotLaserPrefab;
     [SerializeField]
+    private GameObject _heatSeekerPrefab;
+    [SerializeField]
     private GameObject _shieldsUpViewer;
 
     [SerializeField]
@@ -33,7 +35,8 @@ public class Player : MonoBehaviour
     private UIManager _uIManager;
 
     private bool _isTripleShotActive = false;
-    private bool _isShieldsUp = false;
+    private bool _isShieldsUp = false;    
+    private bool _isHeatSeekerOn = false;
 
     private int _score = 0;
 
@@ -152,11 +155,14 @@ public class Player : MonoBehaviour
         {
             _canFire = Time.time + _fireRate;
 
-            if (_isTripleShotActive == true)
+            if (_isTripleShotActive == true && _isHeatSeekerOn == false)
             {
                 Instantiate(_tripleShotLaserPrefab, transform.position, Quaternion.identity);
             }
-
+            if (_isHeatSeekerOn == true)
+            {
+                Instantiate(_heatSeekerPrefab, transform.position, Quaternion.identity);
+            }
             else
             {
                 Vector3 laserOffset = new Vector3(0, 0.8f, 0);
@@ -309,6 +315,18 @@ public class Player : MonoBehaviour
             _shieldsUpViewer.SetActive(false);
         }
 
+    }
+
+    public void HeatSeekerOn()
+    {
+        _isHeatSeekerOn = true;
+        StartCoroutine(HeatSeekerOffCourotine());
+    }
+
+    IEnumerator HeatSeekerOffCourotine()
+    {
+        yield return new WaitForSeconds(5f);
+        _isHeatSeekerOn = false;
     }
 
     public void AmmoReload()

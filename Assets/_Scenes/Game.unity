@@ -944,11 +944,14 @@ MonoBehaviour:
     type: 3}
   _tripleShotLaserPrefab: {fileID: 3920001220525056281, guid: 3f9f7f779aa3fe2418a91becdd572ced,
     type: 3}
+  _heatSeekerPrefab: {fileID: 5544103649481232207, guid: 8a13ba3f48c0f3045bdbbee15328e703,
+    type: 3}
   _shieldsUpViewer: {fileID: 1077550599}
   _fireRate: 0.15
   _ammoCounter: 15
   _lives: 3
   _shields: 0
+  _isHeatSeekerOn: 0
   _playerThrusterLeft: {fileID: 1743472382}
   _playerThrusterRight: {fileID: 1572000649}
   _playerThrusterBoost: {fileID: 188730804}
@@ -1566,6 +1569,7 @@ MonoBehaviour:
   - {fileID: 8458387267577686009, guid: c6fdbfea18d402047a1343af997bd0a7, type: 3}
   - {fileID: 2086726424242268047, guid: 1cc5e2844e65a7541b4a4943a85c4aa7, type: 3}
   - {fileID: 8937102317677625294, guid: af1a3977415669e489e4b501508b47ed, type: 3}
+  - {fileID: 9158441641794727295, guid: 6e553ac3c80b12d498265a5c2be6e636, type: 3}
 --- !u!4 &1102211350
 Transform:
   m_ObjectHideFlags: 0

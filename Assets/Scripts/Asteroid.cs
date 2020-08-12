@@ -46,7 +46,7 @@ public class Asteroid : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Laser")
+        if (other.tag == "Laser" || other.tag == "Heat_Seeker_Laser")
         {
             _uIManager.StartGame();
             Instantiate(_explosionPrefab, transform.position, Quaternion.identity);

@@ -21,6 +21,7 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(SpawnEnemyRoutine());
         StartCoroutine(SpawnPowerupsRoutine());
         StartCoroutine(SpawnAmmoClipRoutine());
+        StartCoroutine(SpawnHeatSeekerPowerupRoutine());
     }
 
     IEnumerator SpawnEnemyRoutine()
@@ -58,6 +59,16 @@ public class SpawnManager : MonoBehaviour
             Instantiate(powerups[4], spawnPosition, Quaternion.identity);
         }
         
+    }
+
+    IEnumerator SpawnHeatSeekerPowerupRoutine()
+    {
+        while (_stopSpawning == false)
+        {
+            yield return new WaitForSeconds(Random.Range(40, 60));
+            Vector3 spawnPosition = new Vector3(Random.Range(-9.5f, 9.5f), 8.0f, 0);
+            Instantiate(powerups[5], spawnPosition, Quaternion.identity);
+        }
     }
 
 
